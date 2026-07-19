@@ -369,15 +369,6 @@
     .gallery .section-eyebrow { color: var(--teal-lt); }
     .gallery .section-heading { color: var(--white); margin-bottom: 2rem; }
 
-.carousel {
-  display: flex;
-  overflow: hidden;
-  border-radius: var(--r);
-  aspect-ratio: 16/9;
-  background: rgba(255,255,255,.05);
-  position: relative;
-}
-
     .carousel-wrap { position: relative; }
     .carousel {
       display: flex;
@@ -960,13 +951,12 @@
 
       let current = 0;
       let autoTimer;
-      let initialized = false;
 
       slides.forEach((slide, i) => {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
         dot.setAttribute('aria-label', 'Bild ' + (i + 1));
-        dot.addEventListener('click', () => goTo(i));
+        dot.addEventListener('click', () => goTo(i, true));
         dotsEl.appendChild(dot);
 
         const thumb = document.createElement('div');
@@ -979,11 +969,11 @@
         } else {
           thumb.textContent = i + 1;
         }
-        thumb.addEventListener('click', () => goTo(i));
+        thumb.addEventListener('click', () => goTo(i, true));
         thumbsEl.appendChild(thumb);
       });
 
-      function updateUI() {
+      function updateUI(scrollThumbs) {
         track.style.transform = 'translateX(-' + current * 100 + '%)';
         const cap = slides[current].dataset.caption || '';
         if (caption) caption.textContent = cap;
@@ -992,29 +982,29 @@
         thumbsEl.querySelectorAll('.carousel-thumb').forEach((t, i) =>
           t.classList.toggle('active', i === current));
         const activeThumb = thumbsEl.children[current];
-        if (activeThumb && initialized) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        if (activeThumb && scrollThumbs) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
 
-      function goTo(n) {
+      function goTo(n, userInitiated) {
         current = (n + slides.length) % slides.length;
-        updateUI();
+        updateUI(userInitiated);
         resetAuto();
       }
 
-      document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1));
-      document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1));
+      document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1, true));
+      document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1, true));
 
       let startX = 0;
       const carousel = document.getElementById('carousel');
       carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
       carousel.addEventListener('touchend', e => {
         const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+        if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1), true);
       });
 
       document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft') goTo(current - 1);
-        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1, true);
+        if (e.key === 'ArrowRight') goTo(current + 1, true);
       });
 
       function resetAuto() {
@@ -1022,8 +1012,7 @@
         autoTimer = setInterval(() => goTo(current + 1), 5000);
       }
 
-      updateUI();
-      initialized = true;
+      updateUI(false);
       resetAuto();
     })();
   });
