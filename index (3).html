@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halleiner Turnverein 1866</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --teal:    #007665;
+      --teal-lt: #00a38c;
+      --navy:    #111987;
+      --navy-dk: #0b1160;
+      --ink:     #1a1a2e;
+      --ash:     #f5f7f6;
+      --white:   #ffffff;
+      --border:  #dde4e2;
+      --ff-serif: 'DM Serif Display', Georgia, serif;
+      --ff-sans:  'DM Sans', system-ui, sans-serif;
+      --r: 6px;
+    }
+
+    /* ── Dark mode tokens ── */
+    [data-theme="dark"] {
+      --teal:    #00a38c;
+      --teal-lt: #00c9ae;
+      --navy:    #8892e8;
+      --navy-dk: #6272d8;
+      --ink:     #e8eaf0;
+      --ash:     #1a1c2e;
+      --white:   #12131f;
+      --border:  #2a2d45;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      width: 36px; height: 36px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--ink);
+      transition: border-color .2s, background .2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--teal); background: var(--ash); }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-sans);
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
+      transition: background .25s, color .25s;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      transition: background .25s, border-color .25s;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-emblem {
+      height: 44px;
+      width: auto;
+    }
+    .nav-name {
+      font-family: var(--ff-serif);
+      font-size: 1.1rem;
+      line-height: 1.15;
+      color: var(--navy);
+    }
+    .nav-name span { color: var(--teal); display: block; font-size: 0.7rem; font-family: var(--ff-sans); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-links {
+      display: flex; gap: 2rem;
+      list-style: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-links a.cta {
+      background: var(--teal);
+      color: var(--white);
+      padding: 8px 18px;
+      border-radius: var(--r);
+    }
+    .nav-links a.cta:hover { background: var(--teal-lt); }
+
+    /* ── Hamburger button ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      cursor: pointer;
+      padding: 6px;
+      flex-shrink: 0;
+      transition: border-color .2s;
+    }
+    .hamburger:hover { border-color: var(--teal); }
+    .hamburger span {
+      display: block;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .25s, opacity .25s, width .25s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile drawer ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 64px 0 0 0;
+      background: var(--white);
+      z-index: 99;
+      flex-direction: column;
+      padding: 2rem 6vw;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1), background .25s;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-menu li { list-style: none; border-bottom: 1px solid var(--border); }
+    .mobile-menu li a {
+      display: block;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: color .15s;
+    }
+    .mobile-menu li a:hover { color: var(--teal); }
+    .mobile-menu li:last-child {
+      border-bottom: none;
+      padding-top: 1.5rem;
+    }
+    .mobile-menu li:last-child a {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: var(--r);
+      font-size: 1rem;
+    }
+    .mobile-menu li:last-child a:hover { background: var(--teal-lt); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(40px, 8vh, 80px) clamp(4vw, 5vw, 6vw);
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.2rem;
+    }
+    .hero-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      line-height: 1.08;
+      color: var(--navy);
+      margin-bottom: 1.4rem;
+    }
+    .hero-heading em {
+      color: var(--teal);
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #4a5568;
+      max-width: 44ch;
+      margin-bottom: 2.4rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center;
+      padding: 13px 26px;
+      border-radius: var(--r);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--teal); color: var(--white); }
+    .btn-primary:hover { background: var(--teal-lt); }
+    .btn-outline { border-color: var(--navy); color: var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+    /* ── Hero year stripe ── */
+    .hero-media {
+      background: var(--navy);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-year {
+      font-family: var(--ff-serif);
+      font-size: clamp(12rem, 24vw, 22rem);
+      color: rgba(255,255,255,.07);
+      font-style: italic;
+      user-select: none;
+      position: absolute;
+      line-height: 1;
+    }
+    .hero-photo {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: .7;
+      mix-blend-mode: luminosity;
+      position: absolute; inset: 0;
+    }
+    .hero-badge {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      text-align: center; color: rgba(255,255,255,.9);
+      background: rgba(0, 118, 101, 0.18);
+      border: 1px solid rgba(0, 163, 140, 0.35);
+      border-radius: 12px;
+      padding: 1.5rem 2.5rem;
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge-num {
+      font-family: var(--ff-serif);
+      font-size: 5rem; line-height: 1;
+      color: var(--white);
+      text-shadow: 0 2px 16px rgba(0,0,0,.5);
+    }
+    .hero-badge-label {
+      font-size: 0.8rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--teal-lt);
+    }
+    .hero-stripe {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--teal) 60%, var(--teal-lt) 100%);
+    }
+
+    /* ── Section wrapper ── */
+    section { padding: clamp(48px, 8vh, 80px) 5vw; }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: .75rem;
+    }
+    .section-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    .section-intro { color: #4a5568; max-width: 60ch; line-height: 1.7; margin-bottom: 3rem; }
+
+    /* ── News feed ── */
+    .news-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .news-post {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-post-meta {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: .75rem;
+    }
+    .news-tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; padding: 2px 10px;
+      border-radius: 20px;
+    }
+    .news-tag.post {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .news-date {
+      font-size: 0.8rem; color: #718096;
+    }
+    .news-post-title {
+      font-family: var(--ff-serif);
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin-bottom: .6rem;
+      line-height: 1.25;
+    }
+    .news-post-body {
+      font-size: 0.92rem;
+      color: #4a5568;
+      line-height: 1.75;
+      max-width: 72ch;
+    }
+    [data-theme="dark"] .news-post-body { color: #9aa0b8; }
+    [data-theme="dark"] .news-date { color: #6b7280; }
+
+    /* ── Events ── */
+    .event-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .event-date {
+      text-align: center;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: var(--r);
+      padding: 8px 0;
+    }
+    .event-date .dd { font-family: var(--ff-serif); font-size: 1.8rem; line-height: 1; }
+    .event-date .mm { font-size: 0.65rem; text-transform: uppercase; letter-spacing: .1em; color: var(--teal-lt); }
+    .event-name { font-weight: 600; color: var(--navy); }
+    .event-place { font-size: 0.82rem; color: #718096; margin-top: 2px; }
+    .event-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); white-space: nowrap; }
+
+    .news-feed .event-row {
+      border-top: none;
+      background: var(--ash);
+      border-radius: var(--r);
+      padding: 1rem 1.2rem;
+      margin: .5rem 0;
+      border-bottom: none;
+    }
+    [data-theme="dark"] .news-feed .event-row { background: var(--ash); }
+
+    /* ── Gallery ── */
+    .gallery { background: var(--navy); padding: clamp(48px, 8vh, 80px) 5vw; }
+    [data-theme="dark"] .gallery { background: #0e0f1e; }
+    .gallery .section-eyebrow { color: var(--teal-lt); }
+    .gallery .section-heading { color: var(--white); margin-bottom: 2rem; }
+
+    .carousel-wrap { position: relative; }
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      border-radius: var(--r);
+      aspect-ratio: 16/9;
+      background: rgba(255,255,255,.05);
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      transition: transform .45s cubic-bezier(.4,0,.2,1);
+    }
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+      background: rgba(255,255,255,.04);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .carousel-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: .75rem;
+      color: rgba(255,255,255,.25);
+      font-size: 0.85rem; letter-spacing: .06em;
+      width: 100%; height: 100%; padding: 2rem;
+      text-align: center;
+    }
+    .carousel-placeholder svg { opacity: .2; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--white);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      transition: background .2s;
+      backdrop-filter: blur(4px);
+    }
+    .carousel-btn:hover { background: var(--teal); border-color: var(--teal); }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+    .carousel-dots {
+      display: flex; justify-content: center; gap: 8px;
+      margin-top: 1.25rem;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      border: none; cursor: pointer; padding: 0;
+      transition: background .2s, transform .2s;
+    }
+    .carousel-dot.active {
+      background: var(--teal-lt);
+      transform: scale(1.3);
+    }
+    .carousel-thumbs {
+      display: flex; gap: 8px;
+      margin-top: 1rem;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--teal) transparent;
+    }
+    .carousel-thumb {
+      flex-shrink: 0;
+      width: 72px; height: 48px;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: .45;
+      border: 2px solid transparent;
+      transition: opacity .2s, border-color .2s;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.2);
+      font-size: 0.65rem;
+    }
+    .carousel-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .carousel-thumb.active { opacity: 1; border-color: var(--teal-lt); }
+    .carousel-thumb:hover { opacity: .8; }
+    .carousel-caption {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.45);
+      min-height: 1.2em;
+      letter-spacing: .04em;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--ash); border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .contact-item-body dt { font-weight: 600; color: var(--navy); font-size: .9rem; }
+    .contact-item-body dd { color: #718096; font-size: .88rem; line-height: 1.5; }
+    .contact-form {
+      background: var(--ash);
+      border-radius: var(--r);
+      padding: 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      font-family: var(--ff-sans);
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: var(--white);
+      outline: none;
+      transition: border-color .15s;
+      color: var(--ink);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--teal); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.5);
+      padding: 2rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer a { color: rgba(255,255,255,.5); }
+    footer a:hover { color: var(--teal-lt); }
+    .footer-brand { color: var(--white); font-family: var(--ff-serif); font-size: 1rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 680px) {
+      nav { padding: 0 4vw; gap: 8px; }
+      .nav-links { display: none; }
+      .nav-name { font-size: 0.9rem; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 48px 6vw 40px; }
+      .hero-heading { font-size: clamp(2rem, 10vw, 3rem); }
+      .hero-media { min-height: 240px; }
+      .hero-year { font-size: clamp(6rem, 28vw, 12rem); }
+      .hero-badge { padding: 1rem 1.6rem; }
+      .hero-badge-num { font-size: 3.5rem; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      section { padding: 52px 6vw; }
+      .section-heading { font-size: clamp(1.4rem, 6vw, 2rem); }
+      .event-row { grid-template-columns: 56px 1fr; gap: 1rem; }
+      .event-tag { display: none; }
+      .event-name { font-size: 0.9rem; }
+      .contact-form { padding: 1.4rem; }
+      footer { flex-direction: column; align-items: flex-start; gap: .5rem; }
+      .carousel-thumbs { gap: 6px; }
+      .carousel-thumb { width: 56px; height: 38px; }
+      .carousel-btn { width: 36px; height: 36px; font-size: .9rem; }
+    }
+    @media (max-width: 380px) {
+      .nav-name span { display: none; }
+      .hero-badge-num { font-size: 2.8rem; }
+      .hero-media { min-height: 180px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body, nav { transition: none; }
+    }
+
+    /* ── Dark mode overrides ── */
+    [data-theme="dark"] .hero-text .hero-sub,
+    [data-theme="dark"] .section-intro,
+    [data-theme="dark"] .event-place,
+    [data-theme="dark"] .contact-item-body dd { color: #9aa0b8; }
+    [data-theme="dark"] .contact-form { background: var(--ash); }
+    [data-theme="dark"] .contact-form input,
+    [data-theme="dark"] .contact-form textarea,
+    [data-theme="dark"] .contact-form select {
+      background: #12131f;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+    [data-theme="dark"] .contact-icon { background: #1e2035; }
+    [data-theme="dark"] footer { background: #0b0c18; }
+    [data-theme="dark"] .btn-outline { border-color: var(--navy); color: var(--navy); }
+    [data-theme="dark"] .btn-outline:hover { background: var(--navy); color: var(--white); }
+    [data-theme="dark"] .hero-media { background: #0e0f1e; }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-brand">
+    <img src="data:image/png;base64,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" alt="HTV Logo" class="nav-emblem" />
+    <span class="nav-name">Halleiner Turnverein <span>seit 1866</span></span>
+  </a>
+  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;margin-right:1.5rem;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Dark/Light Mode umschalten">🌙</button>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <ul class="nav-links">
+    <li><a href="kurse.html">Kurse</a></li>
+    <li><a href="#events">Veranstaltungen</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="geschichte.html">Geschichte</a></li>
+    <li><a href="#kontakt" class="cta">Kontakt</a></li>
+  </ul>
+</nav>
+
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="kurse.html" class="mobile-link">Kurse</a></li>
+  <li><a href="#events" class="mobile-link">Veranstaltungen</a></li>
+  <li><a href="team.html" class="mobile-link">Team</a></li>
+  <li><a href="geschichte.html" class="mobile-link">Geschichte</a></li>
+  <li><a href="#kontakt" class="mobile-link">Kontakt</a></li>
+</ul>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Hallein · Gegründet 1866</p>
+    <h1 class="hero-heading">Bewegung<br>für <em>alle.</em></h1>
+    <p class="hero-sub">
+      Der Halleiner Turnverein bietet seit über 150 Jahren Sport und
+      Gemeinschaft für Jung und Alt – vom Kinderturnen bis zum Erwachsenenfitness.
+    </p>
+    <div class="hero-actions">
+      <a href="kurse.html" class="btn btn-primary">Kursangebot ansehen</a>
+      <a href="#kontakt" class="btn btn-outline">Mitglied werden</a>
+    </div>
+  </div>
+  <div class="hero-media">
+    <span class="hero-year">1866</span>
+    <div class="hero-badge">
+      <span class="hero-badge-num">158</span>
+      <span class="hero-badge-label">Jahre Vereinsgeschichte</span>
+    </div>
+    <div class="hero-stripe"></div>
+  </div>
+</header>
+
+<!-- ══ AKTUELL ══ -->
+<section id="events">
+  <p class="section-eyebrow">Aktuell</p>
+  <h2 class="section-heading">News &amp; Termine</h2>
+  <p class="section-intro">Was bei uns gerade los ist – Neuigkeiten aus dem Vereinsleben und kommende Veranstaltungen.</p>
+
+  <div class="news-feed">
+
+    <article class="news-post">
+      <div class="news-post-meta">
+        <span class="news-tag post">Vereinsnews</span>
+        <span class="news-date">19. Juli 2026</span>
+      </div>
+      <h3 class="news-post-title">Neue Website – sicherer, moderner, besser</h3>
+      <p class="news-post-body">Wie einige von euch vielleicht bemerkt haben, wurde unsere alte Website vor Kurzem Opfer eines Hackerangriffs und musste vom Netz genommen werden. Wir haben diesen Vorfall zum Anlass genommen, die Seite von Grund auf neu zu gestalten – und das Ergebnis haltet ihr gerade in den Händen. Die neue Website läuft auf einer modernen, sicheren Technologie ohne anfällige Datenbanken oder veraltete Systeme. Persönliche Daten unserer Mitglieder waren zu keinem Zeitpunkt betroffen – die alte Seite enthielt ausschließlich öffentliche Informationen wie Kurszeiten und Kontaktdaten. Wir freuen uns über euer Feedback und wünschen viel Spaß beim Stöbern!</p>
+    </article>
+
+    <article class="news-post">
+      <div class="news-post-meta">
+        <span class="news-tag post">Vereinsnews</span>
+        <span class="news-date">28. Juni 2026</span>
+      </div>
+      <h3 class="news-post-title">Schöne Sommerferien – der Trainingsbetrieb startet im September wieder</h3>
+      <p class="news-post-body">Die Sommerpause ist da! Alle regulären Kurse ruhen vom 14. Juli bis 31. August. Ab dem 1. September geht es wieder los – wir freuen uns auf euch. Wer in der Zwischenzeit Fragen hat, erreicht uns wie gewohnt per E-Mail.</p>
+    </article>
+
+    <div class="event-row">
+      <div class="event-date">
+        <div class="dd">19</div>
+        <div class="mm">Jul</div>
+      </div>
+      <div>
+        <div class="event-name">Salzburger Turnfest</div>
+        <div class="event-place">Sportzentrum Hallein</div>
+      </div>
+      <div class="event-tag">Wettkampf</div>
+    </div>
+
+    <article class="news-post">
+      <div class="news-post-meta">
+        <span class="news-tag post">Vereinsnews</span>
+        <span class="news-date">14. Juni 2026</span>
+      </div>
+      <h3 class="news-post-title">Stadtfest: Herzlichen Dank – 340 € für die Vereinskasse!</h3>
+      <p class="news-post-body">Beim diesjährigen Halleiner Stadtstraßenfest haben wir mit unserem Kuchen- und Getränkestand stolze 340 Euro gesammelt. Das Geld fließt direkt in die längst überfällige Renovierung unseres Untergeschoss-Badezimmers. Ein riesiges Dankeschön an alle freiwilligen Helferinnen und Helfer!</p>
+    </article>
+
+    <div class="event-row">
+      <div class="event-date">
+        <div class="dd">09</div>
+        <div class="mm">Aug</div>
+      </div>
+      <div>
+        <div class="event-name">Sommerfest &amp; Vereinsgrillen</div>
+        <div class="event-place">Vereinsgelände, Hallein</div>
+      </div>
+      <div class="event-tag">Vereinsfeier</div>
+    </div>
+
+    <div class="event-row">
+      <div class="event-date">
+        <div class="dd">06</div>
+        <div class="mm">Sep</div>
+      </div>
+      <div>
+        <div class="event-name">Schnuppertraining für Neulinge</div>
+        <div class="event-place">Turnhalle, kostenlos &amp; offen für alle</div>
+      </div>
+      <div class="event-tag">Offen</div>
+    </div>
+
+    <article class="news-post">
+      <div class="news-post-meta">
+        <span class="news-tag post">Vereinsnews</span>
+        <span class="news-date">3. Mai 2026</span>
+      </div>
+      <h3 class="news-post-title">Neue Matten für die Turnhalle</h3>
+      <p class="news-post-body">Dank einer Förderung des Salzburger Landessportverbands konnten wir sechs neue Turnmatten anschaffen. Die alten Matten hatten nach über 15 Jahren ihren Dienst redlich getan – jetzt ist die Halle wieder topausgerüstet für den Herbstbetrieb.</p>
+    </article>
+
+    <div class="event-row">
+      <div class="event-date">
+        <div class="dd">27</div>
+        <div class="mm">Sep</div>
+      </div>
+      <div>
+        <div class="event-name">Herbst-Schauturnen</div>
+        <div class="event-place">Stadthalle Hallein</div>
+      </div>
+      <div class="event-tag">Vorführung</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ GALERIE ══ -->
+<section class="gallery" id="galerie">
+  <p class="section-eyebrow">Einblicke</p>
+  <h2 class="section-heading">Aus dem Vereinsleben</h2>
+
+  <div class="carousel-wrap">
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide" data-caption="Herbst-Schauturnen 2025">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Herbst-Schauturnen 2025<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Sommerfest am Vereinsgelände">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Sommerfest am Vereinsgelände<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Kinderturnen – Spaß in der Halle">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Kinderturnen – Spaß in der Halle<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Geräteturnen Jugend">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Geräteturnen Jugend<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Salzburger Turnfest 2024">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Salzburger Turnfest 2024<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Seniorengymnastik – immer in Bewegung">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Seniorengymnastik – immer in Bewegung<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Vereinsgrillen 2024">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Vereinsgrillen 2024<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Fitness & Kraft – Erwachsenenkurs">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Fitness &amp; Kraft – Erwachsenenkurs<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Stadtfest Hallein 2025">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Stadtfest Hallein 2025<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Kleinkindturnen – die Allerkleinsten">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Kleinkindturnen – die Allerkleinsten<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Rückengymnastik – Kurs Dienstag">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Rückengymnastik – Kurs Dienstag<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+        <div class="carousel-slide" data-caption="Neue Turnmatten – bereit für den Herbst">
+          <div class="carousel-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Neue Turnmatten – bereit für den Herbst<br><em>Drive-Link einfügen</em></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="carousel-btn prev" id="carouselPrev" aria-label="Vorheriges Bild">&#8592;</button>
+    <button class="carousel-btn next" id="carouselNext" aria-label="Nächstes Bild">&#8594;</button>
+  </div>
+
+  <div class="carousel-dots" id="carouselDots"></div>
+  <div class="carousel-thumbs" id="carouselThumbs"></div>
+  <div class="carousel-caption" id="carouselCaption"></div>
+</section>
+
+<!-- ══ KONTAKT ══ -->
+<section id="kontakt">
+  <p class="section-eyebrow">Schreibt uns</p>
+  <h2 class="section-heading">Kontakt &amp; Mitgliedschaft</h2>
+
+  <div class="contact-grid">
+
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <dl class="contact-item-body">
+          <dt>Adresse</dt>
+          <dd>Bürgerspitalplatz 5<br>5400 Hallein</dd>
+        </dl>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <dl class="contact-item-body">
+          <dt>E-Mail</dt>
+          <dd><a href="mailto:office@htv1866.at">office@htv1866.at</a></dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3 style="font-family:var(--ff-serif);color:var(--navy);font-size:1.2rem;margin-bottom:.5rem">Anfrage senden</h3>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Vorname Nachname" />
+      </div>
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input type="email" id="email" placeholder="name@beispiel.at" />
+      </div>
+      <div class="form-group">
+        <label for="thema">Thema</label>
+        <select id="thema">
+          <option value="">Bitte wählen …</option>
+          <option>Mitgliedschaft</option>
+          <option>Kursanfrage</option>
+          <option>Allgemeine Frage</option>
+          <option>Kooperation</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="nachricht">Nachricht</label>
+        <textarea id="nachricht" placeholder="Euer Anliegen …"></textarea>
+      </div>
+      <a href="#" class="btn btn-primary" style="align-self:flex-start">Absenden</a>
+      <p style="font-size:.75rem;color:#718096">Wir melden uns in der Regel innerhalb von 2 Werktagen.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span class="footer-brand">HTV Hallein</span>
+  <span>© 2026 Halleiner Turnverein 1866 &nbsp;·&nbsp; <a href="#">Impressum</a> &nbsp;·&nbsp; <a href="#">Datenschutz</a></span>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+    const html = document.documentElement;
+    let saved = 'light';
+    try { saved = localStorage.getItem('theme') || saved; } catch(e) {}
+    if (saved === 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+    html.setAttribute('data-theme', saved);
+    toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+    toggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    });
+
+    // ── Carousel ──
+    (function() {
+      const track    = document.getElementById('carouselTrack');
+      const slides   = track ? Array.from(track.children) : [];
+      const dotsEl   = document.getElementById('carouselDots');
+      const thumbsEl = document.getElementById('carouselThumbs');
+      const caption  = document.getElementById('carouselCaption');
+      if (!track || !slides.length) return;
+
+      let current = 0;
+      let autoTimer;
+      let initialized = false;
+
+      slides.forEach((slide, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Bild ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+
+        const thumb = document.createElement('div');
+        thumb.className = 'carousel-thumb' + (i === 0 ? ' active' : '');
+        const img = slide.querySelector('img');
+        if (img) {
+          const t = document.createElement('img');
+          t.src = img.src; t.alt = img.alt;
+          thumb.appendChild(t);
+        } else {
+          thumb.textContent = i + 1;
+        }
+        thumb.addEventListener('click', () => goTo(i));
+        thumbsEl.appendChild(thumb);
+      });
+
+      function updateUI() {
+        track.style.transform = 'translateX(-' + current * 100 + '%)';
+        const cap = slides[current].dataset.caption || '';
+        if (caption) caption.textContent = cap;
+        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
+          d.classList.toggle('active', i === current));
+        thumbsEl.querySelectorAll('.carousel-thumb').forEach((t, i) =>
+          t.classList.toggle('active', i === current));
+        const activeThumb = thumbsEl.children[current];
+        if (activeThumb && initialized) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      function goTo(n) {
+        current = (n + slides.length) % slides.length;
+        updateUI();
+        resetAuto();
+      }
+
+      document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1));
+
+      let startX = 0;
+      const carousel = document.getElementById('carousel');
+      carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      carousel.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+      });
+
+      function resetAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), 5000);
+      }
+
+      updateUI();
+      initialized = true;
+      resetAuto();
+    })();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kursangebot – Halleiner Turnverein 1866</title>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --teal:   #007665;
+      --teal-d: #005a4d;
+      --navy:   #111987;
+      --navy-d: #0d1266;
+
+      --bg:       #ffffff;
+      --bg-alt:   #f4f6f8;
+      --surface:  #ffffff;
+      --border:   #e0e4ea;
+      --text:     #1a1a2e;
+      --text-muted: #5a6070;
+      --heading:  #111987;
+
+      --ff-serif: 'Georgia', 'Times New Roman', serif;
+      --ff-sans:  system-ui, -apple-system, sans-serif;
+
+      --radius: .75rem;
+      --shadow: 0 2px 12px rgba(0,0,0,.08);
+      --shadow-hover: 0 6px 24px rgba(0,0,0,.14);
+    }
+    [data-theme="dark"] {
+      --bg:       #0f1117;
+      --bg-alt:   #181c27;
+      --surface:  #1e2232;
+      --border:   #2e3450;
+      --text:     #e8eaf6;
+      --text-muted: #8892b0;
+      --heading:  #7986cb;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background .25s, color .25s;
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: .75rem 2rem;
+      gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .nav-logo svg { width: 36px; height: 36px; flex-shrink: 0; }
+    .nav-logo-text { font-family: var(--ff-serif); font-size: 1rem; color: #fff; line-height: 1.2; }
+    .nav-links { list-style: none; display: flex; gap: 0; margin-left: auto; margin-right: 1.5rem; }
+    .nav-links a {
+      color: rgba(255,255,255,.82);
+      font-size: .92rem; font-weight: 500;
+      padding: .45rem .9rem;
+      border-radius: .4rem;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,.15); color: #fff; text-decoration: none;
+    }
+    #themeToggle {
+      background: none; border: 1.5px solid rgba(255,255,255,.35);
+      border-radius: .4rem; color: #fff;
+      font-size: 1rem; cursor: pointer;
+      padding: .3rem .55rem;
+      transition: border-color .18s;
+    }
+    #themeToggle:hover { border-color: rgba(255,255,255,.7); }
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; top: 60px;
+      background: var(--navy); z-index: 99;
+      flex-direction: column; padding: 1.5rem 2rem; gap: .5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-link {
+      color: rgba(255,255,255,.85); font-size: 1.1rem;
+      padding: .65rem .5rem; border-bottom: 1px solid rgba(255,255,255,.1);
+      display: block;
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a237e 50%, var(--teal) 100%);
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+    }
+    .breadcrumb { font-size: .82rem; color: rgba(255,255,255,.65); margin-bottom: .75rem; }
+    .breadcrumb a { color: rgba(255,255,255,.75); }
+    .breadcrumb a:hover { color: #fff; }
+    .page-header h1 {
+      font-family: var(--ff-serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #ffffff;
+      line-height: 1.1; margin-bottom: .6rem;
+    }
+    .page-header p { color: rgba(255,255,255,.8); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+    /* ── SECTION LAYOUT ── */
+    .section { padding: 4rem 2rem; }
+    .section.alt { background: var(--bg-alt); }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: .5rem;
+    }
+    .section-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--heading); margin-bottom: 1rem; line-height: 1.2;
+    }
+    .section-intro { color: var(--text-muted); max-width: 620px; margin-bottom: 2.5rem; }
+
+    /* ── SCHEDULE TABLE ── */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    .day-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .day-header {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 700;
+      font-size: .9rem;
+      padding: .65rem 1rem;
+      letter-spacing: .04em;
+    }
+    .day-slots { display: flex; flex-direction: column; }
+    .slot {
+      padding: .7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .84rem;
+    }
+    .slot:last-child { border-bottom: none; }
+    .slot-time { color: var(--teal); font-weight: 700; font-size: .78rem; margin-bottom: .15rem; }
+    .slot-name { color: var(--text); font-weight: 600; line-height: 1.3; }
+    .slot-trainer { color: var(--text-muted); font-size: .76rem; margin-top: .1rem; }
+    .slot-location { color: var(--text-muted); font-size: .75rem; font-style: italic; }
+    .slot.highlight { background: rgba(0,118,101,.06); }
+
+    /* ── FEE TABLES ── */
+    .fee-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media (max-width: 680px) { .fee-layout { grid-template-columns: 1fr; } }
+
+    .fee-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .fee-card-header {
+      padding: 1rem 1.25rem;
+      font-weight: 700; font-size: .95rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .fee-card-header.teal { background: var(--teal); color: #fff; }
+    .fee-card-header.navy { background: var(--navy); color: #fff; }
+    .fee-card-header.muted { background: var(--bg-alt); color: var(--heading); }
+    .fee-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: .65rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem; gap: 1rem;
+    }
+    .fee-row:last-child { border-bottom: none; }
+    .fee-row-label { color: var(--text); flex: 1; }
+    .fee-row-label small { display: block; color: var(--text-muted); font-size: .78rem; margin-top: .1rem; }
+    .fee-amount { color: var(--teal); font-weight: 700; white-space: nowrap; }
+    .fee-note {
+      padding: .75rem 1.25rem;
+      font-size: .82rem; color: var(--text-muted);
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+    }
+
+    .surcharge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .surcharge-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .surcharge-title { font-weight: 700; color: var(--heading); margin-bottom: .25rem; }
+    .surcharge-desc { font-size: .87rem; color: var(--text-muted); }
+    .surcharge-amount { font-weight: 700; color: var(--teal); margin-top: .3rem; font-size: .95rem; }
+    .surcharge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+
+    .info-banner {
+      background: linear-gradient(135deg, rgba(0,118,101,.1) 0%, rgba(17,25,135,.08) 100%);
+      border: 1px solid rgba(0,118,101,.25);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+      font-size: .9rem;
+      color: var(--text);
+    }
+    .info-banner strong { color: var(--teal); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,.7);
+      text-align: center; padding: 2rem;
+      font-size: .85rem; margin-top: 0;
+    }
+    footer a { color: rgba(255,255,255,.85); }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="80" height="80" rx="12" fill="#007665"/>
+      <text x="14" y="58" font-family="Georgia,serif" font-size="52" font-weight="700" fill="#ffffff">H</text>
+      <text x="46" y="58" font-family="Georgia,serif" font-size="52" font-weight="700" fill="#111987">V</text>
+    </svg>
+    <span class="nav-logo-text">Halleiner<br>Turnverein 1866</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Startseite</a></li>
+    <li><a href="kurse.html" class="active">Kurse</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="geschichte.html">Geschichte</a></li>
+  </ul>
+  <button id="themeToggle" aria-label="Farbschema wechseln">🌙</button>
+  <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link">Startseite</a>
+  <a href="kurse.html" class="mobile-link">Kurse</a>
+  <a href="team.html" class="mobile-link">Team</a>
+  <a href="geschichte.html" class="mobile-link">Geschichte</a>
+</div>
+
+<!-- ── PAGE HEADER ── -->
+<header class="page-header">
+  <p class="breadcrumb"><a href="index.html">Startseite</a> › Kurse &amp; Beiträge</p>
+  <h1>Kurse &amp; Beiträge</h1>
+  <p>Turnplan, Kursangebot und Mitgliedsbeiträge des Halleiner Turnvereins 1866</p>
+</header>
+
+<!-- ── TURNPLAN ── -->
+<section class="section">
+  <div class="container">
+    <p class="section-eyebrow">Wöchentlicher Betrieb</p>
+    <h2 class="section-heading">Turnplan</h2>
+    <p class="section-intro">Alle Trainingszeiten auf einem Blick. Änderungen werden rechtzeitig bekanntgegeben.</p>
+
+    <div class="schedule-grid">
+
+      <div class="day-col">
+        <div class="day-header">Montag</div>
+        <div class="day-slots">
+          <div class="slot highlight">
+            <div class="slot-time">17:00 – 20:00 Uhr</div>
+            <div class="slot-name">Leistungsriege Mädchen</div>
+            <div class="slot-trainer">Wolfgang &amp; Leonie</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-header">Dienstag</div>
+        <div class="day-slots">
+          <div class="slot">
+            <div class="slot-time" style="color:var(--text-muted); font-style:italic">–</div>
+            <div class="slot-name" style="color:var(--text-muted); font-style:italic">Kein Turnbetrieb</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-header">Mittwoch</div>
+        <div class="day-slots">
+          <div class="slot">
+            <div class="slot-time">15:00 – 16:15 Uhr</div>
+            <div class="slot-name">Elternkindturnen</div>
+            <div class="slot-trainer">Christiane &amp; Cornelia Dorfner</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">16:30 – 18:00 Uhr</div>
+            <div class="slot-name">Turnen 6–8 Jahre</div>
+            <div class="slot-trainer">Dorfner</div>
+          </div>
+          <div class="slot highlight">
+            <div class="slot-time">17:30 – 19:30 Uhr</div>
+            <div class="slot-name">Burschenturnen ab 9 Jahre</div>
+          </div>
+          <div class="slot highlight">
+            <div class="slot-time">18:00 – 20:30 Uhr</div>
+            <div class="slot-name">Teamturnen HTI</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">19:30 – 21:30 Uhr</div>
+            <div class="slot-name">Erwachsenenturnstunde</div>
+            <div class="slot-trainer">Offener Betrieb</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-header">Donnerstag</div>
+        <div class="day-slots">
+          <div class="slot">
+            <div class="slot-time">14:15 – 15:30 Uhr</div>
+            <div class="slot-name">Elternkindturnen</div>
+            <div class="slot-trainer">Dorfner</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">15:30 – 16:30 Uhr</div>
+            <div class="slot-name">Kleinkinderturnen 4–6 Jahre</div>
+            <div class="slot-trainer">Dorfner</div>
+          </div>
+          <div class="slot highlight">
+            <div class="slot-time">17:00 – 20:00 Uhr</div>
+            <div class="slot-name">Leistungsriege Mädchen</div>
+            <div class="slot-trainer">Wolfgang</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">18:00 – 19:00 Uhr</div>
+            <div class="slot-name">Damengymnastik</div>
+            <div class="slot-trainer">Monika Radacher</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-header">Freitag</div>
+        <div class="day-slots">
+          <div class="slot">
+            <div class="slot-time">14:30 – 16:30 Uhr</div>
+            <div class="slot-name">Mädchenturnen 9–11 Jahre</div>
+            <div class="slot-trainer">Dorfner</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">16:45 – 18:45 Uhr</div>
+            <div class="slot-name">Mädchenturnen ab 12 Jahren</div>
+            <div class="slot-trainer">Dorfner</div>
+          </div>
+          <div class="slot highlight">
+            <div class="slot-time">17:30 – 19:30 Uhr</div>
+            <div class="slot-name">Burschenturnen ab 9 Jahre</div>
+            <div class="slot-location">ULSZ Rif</div>
+          </div>
+          <div class="slot highlight">
+            <div class="slot-time">18:00 – 20:30 Uhr</div>
+            <div class="slot-name">Teamturnen HTI</div>
+            <div class="slot-location">ULSZ Rif</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">19:00 – 20:00 Uhr</div>
+            <div class="slot-name">Funktionsgymnastik</div>
+            <div class="slot-trainer">Jetske Schwaiger</div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">20:00 – 22:00 Uhr</div>
+            <div class="slot-name">Volleyball</div>
+            <div class="slot-trainer">Herwig Schwaiger</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end schedule-grid -->
+  </div>
+</section>
+
+<!-- ── MITGLIEDSBEITRÄGE ── -->
+<section class="section alt">
+  <div class="container">
+    <p class="section-eyebrow">Finanzielles</p>
+    <h2 class="section-heading">Mitgliedsbeiträge</h2>
+    <p class="section-intro">Gültig ab Herbstsemester 2023 lt. Beschluss der Generalversammlung vom 21. April 2023.</p>
+
+    <div class="fee-layout">
+
+      <!-- Kinder -->
+      <div class="fee-card">
+        <div class="fee-card-header teal">👧 Kinder</div>
+        <div class="fee-row">
+          <div class="fee-row-label">1. Kind</div>
+          <div class="fee-amount">€ 85,– / Semester</div>
+        </div>
+        <div class="fee-row">
+          <div class="fee-row-label">Jedes weitere Kind</div>
+          <div class="fee-amount">€ 40,– / Semester</div>
+        </div>
+      </div>
+
+      <!-- Erwachsene -->
+      <div class="fee-card">
+        <div class="fee-card-header navy">🏃 Erwachsene</div>
+        <div class="fee-row">
+          <div class="fee-row-label">Mitgliedsbeitrag</div>
+          <div class="fee-amount">€ 60,– / Semester</div>
+        </div>
+        <div class="fee-row">
+          <div class="fee-row-label">
+            Ruhendlegung
+            <small>Mitgliedschaft ohne aktive Teilnahme</small>
+          </div>
+          <div class="fee-amount">€ 15,– / Semester</div>
+        </div>
+      </div>
+
+      <!-- Unterstützende Mitglieder -->
+      <div class="fee-card">
+        <div class="fee-card-header muted">🤝 Unterstützende Mitglieder</div>
+        <div class="fee-row">
+          <div class="fee-row-label">Jahresbeitrag</div>
+          <div class="fee-amount">€ 30,– / Jahr</div>
+        </div>
+      </div>
+
+      <!-- Einschreibgebühr -->
+      <div class="fee-card">
+        <div class="fee-card-header muted">📋 Einschreibgebühr</div>
+        <div class="fee-row">
+          <div class="fee-row-label">
+            Einmalig für neue Mitglieder
+          </div>
+          <div class="fee-amount">€ 20,– einmalig</div>
+        </div>
+      </div>
+
+    </div><!-- end fee-layout -->
+
+    <!-- Zuschläge -->
+    <h3 style="font-family:var(--ff-serif); color:var(--heading); margin: 2.5rem 0 .25rem; font-size:1.3rem;">Zuschläge</h3>
+    <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:0;">Werden zum Grundbeitrag hinzugerechnet.</p>
+
+    <div class="surcharge-grid">
+
+      <div class="surcharge-card">
+        <div class="surcharge-icon">🤸</div>
+        <div>
+          <div class="surcharge-title">Gymnastikinnen- &amp; Fitnessangebote</div>
+          <div class="surcharge-desc">Für Kurse mit Trainer*innen-Begleitung. Ausgenommen: Senior*innen ab 60 Jahren.</div>
+          <div class="surcharge-amount">+ € 30,– / Semester</div>
+        </div>
+      </div>
+
+      <div class="surcharge-card">
+        <div class="surcharge-icon">🔄</div>
+        <div>
+          <div class="surcharge-title">Mehrfachteilnahme</div>
+          <div class="surcharge-desc">Bei Belegung mehrerer Kurse oder mehrerer Trainings pro Woche.</div>
+          <div class="surcharge-amount">+ € 60,– / Semester</div>
+        </div>
+      </div>
+
+      <div class="surcharge-card">
+        <div class="surcharge-icon">👴</div>
+        <div>
+          <div class="surcharge-title">Mehrfachteilnahme Senior*innen</div>
+          <div class="surcharge-desc">Ermäßigter Zuschlag für Mehrfachteilnahme ab 60 Jahren.</div>
+          <div class="surcharge-amount">+ € 30,– / Semester</div>
+        </div>
+      </div>
+
+      <div class="surcharge-card">
+        <div class="surcharge-icon">👶</div>
+        <div>
+          <div class="surcharge-title">Mehrfachteilnahme weiteres Kind</div>
+          <div class="surcharge-desc">Pro Kind bei Mehrfachbelegung von Kursen oder Trainings.</div>
+          <div class="surcharge-amount">+ € 30,– / Semester</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="info-banner">
+      <strong>Fragen zu Mitgliedschaft oder Beiträgen?</strong> Kontaktiere uns unter
+      <a href="index.html#kontakt">unserem Kontaktformular</a> oder direkt an
+      <strong>Bürgerspitalplatz 5, 5400 Hallein</strong>.
+      Unser ZVR-Zahl: 423801129.
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2024 Halleiner Turnverein 1866 · Bürgerspitalplatz 5, 5400 Hallein</p>
+  <p style="margin-top:.4rem"><a href="index.html">Startseite</a> · <a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+    const html = document.documentElement;
+    let saved = 'light';
+    try { saved = localStorage.getItem('theme') || saved; } catch(e) {}
+    if (saved === 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+    html.setAttribute('data-theme', saved);
+    toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+    toggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    });
+  });
+</script>
+</body>
+</html>
