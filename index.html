@@ -472,10 +472,7 @@
 
     /* ── Contact ── */
     .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
+      max-width: 480px;
     }
     .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
     .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
@@ -487,31 +484,6 @@
     }
     .contact-item-body dt { font-weight: 600; color: var(--navy); font-size: .9rem; }
     .contact-item-body dd { color: #718096; font-size: .88rem; line-height: 1.5; }
-    .contact-form {
-      background: var(--ash);
-      border-radius: var(--r);
-      padding: 2rem;
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-    .form-group { display: flex; flex-direction: column; gap: .35rem; }
-    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      font-family: var(--ff-sans);
-      font-size: 0.9rem;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      background: var(--white);
-      outline: none;
-      transition: border-color .15s;
-      color: var(--ink);
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus { border-color: var(--teal); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
 
     /* ── Footer ── */
     footer {
@@ -530,9 +502,6 @@
     .footer-brand { color: var(--white); font-family: var(--ff-serif); font-size: 1rem; }
 
     /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-    }
     @media (max-width: 680px) {
       nav { padding: 0 4vw; gap: 8px; }
       .nav-links { display: none; }
@@ -553,7 +522,6 @@
       .event-row { grid-template-columns: 56px 1fr; gap: 1rem; }
       .event-tag { display: none; }
       .event-name { font-size: 0.9rem; }
-      .contact-form { padding: 1.4rem; }
       footer { flex-direction: column; align-items: flex-start; gap: .5rem; }
       .carousel-thumbs { gap: 6px; }
       .carousel-thumb { width: 56px; height: 38px; }
@@ -573,14 +541,6 @@
     [data-theme="dark"] .section-intro,
     [data-theme="dark"] .event-place,
     [data-theme="dark"] .contact-item-body dd { color: #9aa0b8; }
-    [data-theme="dark"] .contact-form { background: var(--ash); }
-    [data-theme="dark"] .contact-form input,
-    [data-theme="dark"] .contact-form textarea,
-    [data-theme="dark"] .contact-form select {
-      background: #12131f;
-      color: var(--ink);
-      border-color: var(--border);
-    }
     [data-theme="dark"] .contact-icon { background: #1e2035; }
     [data-theme="dark"] footer { background: #0b0c18; }
     [data-theme="dark"] .btn-outline { border-color: var(--navy); color: var(--navy); }
@@ -607,7 +567,8 @@
     <li><a href="#events">Veranstaltungen</a></li>
     <li><a href="team.html">Team</a></li>
     <li><a href="geschichte.html">Geschichte</a></li>
-    <li><a href="#kontakt" class="cta">Kontakt</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="mitglied-werden.html" class="cta">Mitglied werden</a></li>
   </ul>
 </nav>
 
@@ -617,6 +578,7 @@
   <li><a href="team.html" class="mobile-link">Team</a></li>
   <li><a href="geschichte.html" class="mobile-link">Geschichte</a></li>
   <li><a href="#kontakt" class="mobile-link">Kontakt</a></li>
+  <li><a href="mitglied-werden.html" class="mobile-link">Mitglied werden</a></li>
 </ul>
 
 <!-- ══ HERO ══ -->
@@ -630,7 +592,7 @@
     </p>
     <div class="hero-actions">
       <a href="kurse.html" class="btn btn-primary">Kursangebot ansehen</a>
-      <a href="#kontakt" class="btn btn-outline">Mitglied werden</a>
+      <a href="mitglied-werden.html" class="btn btn-outline">Mitglied werden</a>
     </div>
   </div>
   <div class="hero-media">
@@ -865,34 +827,6 @@
           <dd><a href="mailto:office@htv1866.at">office@htv1866.at</a></dd>
         </dl>
       </div>
-    </div>
-
-    <div class="contact-form">
-      <h3 style="font-family:var(--ff-serif);color:var(--navy);font-size:1.2rem;margin-bottom:.5rem">Anfrage senden</h3>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Vorname Nachname" />
-      </div>
-      <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" placeholder="name@beispiel.at" />
-      </div>
-      <div class="form-group">
-        <label for="thema">Thema</label>
-        <select id="thema">
-          <option value="">Bitte wählen …</option>
-          <option>Mitgliedschaft</option>
-          <option>Kursanfrage</option>
-          <option>Allgemeine Frage</option>
-          <option>Kooperation</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="nachricht">Nachricht</label>
-        <textarea id="nachricht" placeholder="Euer Anliegen …"></textarea>
-      </div>
-      <a href="#" class="btn btn-primary" style="align-self:flex-start">Absenden</a>
-      <p style="font-size:.75rem;color:#718096">Wir melden uns in der Regel innerhalb von 2 Werktagen.</p>
     </div>
 
   </div>
