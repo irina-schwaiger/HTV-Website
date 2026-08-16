@@ -54,6 +54,8 @@
       transition: background .18s, color .18s; white-space: nowrap;
     }
     .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,.15); color: #fff; text-decoration: none; }
+    .nav-links a.shop-cta { background: var(--teal); color: #fff; }
+    .nav-links a.shop-cta:hover { background: var(--teal-d); color: #fff; }
     #themeToggle {
       background: none; border: 1.5px solid rgba(255,255,255,.35);
       border-radius: .4rem; color: #fff; font-size: 1rem; cursor: pointer;
@@ -68,6 +70,8 @@
     .mobile-menu { display: none; position: fixed; inset: 0; top: 60px; background: var(--navy); z-index: 99; flex-direction: column; padding: 1.5rem 2rem; gap: .5rem; }
     .mobile-menu.open { display: flex; }
     .mobile-link { color: rgba(255,255,255,.85); font-size: 1.1rem; padding: .65rem .5rem; border-bottom: 1px solid rgba(255,255,255,.1); display: block; }
+    .mobile-link.shop-link { background: var(--teal); color: #fff; border-radius: .4rem; border-bottom: none; text-align: center; margin-top: .5rem; }
+    .mobile-link.shop-link:hover { background: var(--teal-d); }
     @media (max-width: 680px) { .nav-links { display: none; } .hamburger { display: flex; } }
 
     /* PAGE HEADER */
@@ -151,6 +155,8 @@
     .btn-primary:hover { background: var(--teal-d); text-decoration: none; }
     .btn-outline { border: 1.5px solid var(--teal); color: var(--teal); }
     .btn-outline:hover { background: var(--teal); color: #fff; text-decoration: none; }
+    .btn-shop { background: var(--navy); color: #fff; }
+    .btn-shop:hover { background: #0b1160; text-decoration: none; }
 
     footer { background: var(--navy); color: rgba(255,255,255,.7); text-align: center; padding: 2rem; font-size: .85rem; }
     footer a { color: rgba(255,255,255,.85); }
@@ -173,6 +179,7 @@
     <li><a href="team.html">Team</a></li>
     <li><a href="geschichte.html">Geschichte</a></li>
     <li><a href="mitglied-werden.html" class="active">Mitglied werden</a></li>
+    <li><a href="https://erima.shop/halleiner-turnverein" class="shop-cta" target="_blank" rel="noopener noreferrer">🛍️ Vereinsshop</a></li>
   </ul>
   <button id="themeToggle" aria-label="Farbschema wechseln">🌙</button>
   <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
@@ -185,6 +192,7 @@
   <a href="team.html" class="mobile-link">Team</a>
   <a href="geschichte.html" class="mobile-link">Geschichte</a>
   <a href="mitglied-werden.html" class="mobile-link">Mitglied werden</a>
+  <a href="https://erima.shop/halleiner-turnverein" class="mobile-link shop-link" target="_blank" rel="noopener noreferrer">🛍️ Vereinsshop</a>
 </div>
 
 <header class="page-header">
@@ -253,6 +261,7 @@
       <div class="cta-actions">
         <a href="mailto:office@htv1866.at" class="btn btn-primary">E-Mail schreiben</a>
         <a href="kurse.html" class="btn btn-outline">Kursangebot ansehen</a>
+        <a href="https://erima.shop/halleiner-turnverein" class="btn btn-shop" target="_blank" rel="noopener noreferrer">🛍️ Vereinsshop</a>
       </div>
     </div>
   </div>

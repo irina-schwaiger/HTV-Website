@@ -101,6 +101,13 @@
       border-radius: var(--r);
     }
     .nav-links a.cta:hover { background: var(--teal-lt); }
+    .nav-links a.shop-cta {
+      background: var(--navy);
+      color: var(--white);
+      padding: 8px 18px;
+      border-radius: var(--r);
+    }
+    .nav-links a.shop-cta:hover { background: var(--navy-dk); }
 
     /* ── Hamburger button ── */
     .hamburger {
@@ -157,11 +164,11 @@
       transition: color .15s;
     }
     .mobile-menu li a:hover { color: var(--teal); }
-    .mobile-menu li:last-child {
+    .mobile-menu li.mobile-cta {
       border-bottom: none;
       padding-top: 1.5rem;
     }
-    .mobile-menu li:last-child a {
+    .mobile-menu li.mobile-cta a {
       display: inline-block;
       background: var(--teal);
       color: var(--white);
@@ -169,7 +176,9 @@
       border-radius: var(--r);
       font-size: 1rem;
     }
-    .mobile-menu li:last-child a:hover { background: var(--teal-lt); }
+    .mobile-menu li.mobile-cta a:hover { background: var(--teal-lt); }
+    .mobile-menu li.mobile-cta.shop a { background: var(--navy); }
+    .mobile-menu li.mobile-cta.shop a:hover { background: var(--navy-dk); }
 
     /* ── Hero ── */
     .hero {
@@ -223,6 +232,8 @@
     .btn-primary:hover { background: var(--teal-lt); }
     .btn-outline { border-color: var(--navy); color: var(--navy); }
     .btn-outline:hover { background: var(--navy); color: var(--white); }
+    .btn-shop { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .btn-shop:hover { background: var(--navy-dk); border-color: var(--navy-dk); }
 
     /* ── Hero year stripe ── */
     .hero-media {
@@ -569,6 +580,7 @@
     <li><a href="geschichte.html">Geschichte</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
     <li><a href="mitglied-werden.html" class="cta">Mitglied werden</a></li>
+    <li><a href="https://erima.shop/halleiner-turnverein" class="shop-cta" target="_blank" rel="noopener noreferrer">🛍️ Vereinsshop</a></li>
   </ul>
 </nav>
 
@@ -578,7 +590,8 @@
   <li><a href="team.html" class="mobile-link">Team</a></li>
   <li><a href="geschichte.html" class="mobile-link">Geschichte</a></li>
   <li><a href="#kontakt" class="mobile-link">Kontakt</a></li>
-  <li><a href="mitglied-werden.html" class="mobile-link">Mitglied werden</a></li>
+  <li class="mobile-cta"><a href="mitglied-werden.html" class="mobile-link">Mitglied werden</a></li>
+  <li class="mobile-cta shop"><a href="https://erima.shop/halleiner-turnverein" class="mobile-link" target="_blank" rel="noopener noreferrer">🛍️ Vereinsshop</a></li>
 </ul>
 
 <!-- ══ HERO ══ -->
@@ -593,6 +606,7 @@
     <div class="hero-actions">
       <a href="kurse.html" class="btn btn-primary">Kursangebot ansehen</a>
       <a href="mitglied-werden.html" class="btn btn-outline">Mitglied werden</a>
+      <a href="https://erima.shop/halleiner-turnverein" class="btn btn-shop" target="_blank" rel="noopener noreferrer">🛍️ Vereinsshop</a>
     </div>
   </div>
   <div class="hero-media">
