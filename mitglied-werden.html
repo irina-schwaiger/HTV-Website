@@ -289,9 +289,9 @@
     const toggle = document.getElementById('themeToggle');
     if (!toggle) return;
     const html = document.documentElement;
-    let saved = 'light';
-    try { saved = localStorage.getItem('theme') || saved; } catch(e) {}
-    if (saved === 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch(e) {}
+    if (!saved) saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     html.setAttribute('data-theme', saved);
     toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
     toggle.addEventListener('click', () => {
