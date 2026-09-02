@@ -529,16 +529,37 @@
       background: var(--ink);
       color: rgba(255,255,255,.5);
       padding: 2rem 5vw;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       font-size: 0.8rem;
-      flex-wrap: wrap;
-      gap: 1rem;
     }
     footer a { color: rgba(255,255,255,.5); }
     footer a:hover { color: var(--teal-lt); }
     .footer-brand { color: var(--white); font-family: var(--ff-serif); font-size: 1rem; }
+    .footer-partners {
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .footer-partners-label {
+      display: block;
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: .75rem;
+    }
+    .footer-partner-list { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .footer-partner {
+      border: 1px dashed rgba(255,255,255,.3);
+      border-radius: .4rem;
+      padding: .4rem .9rem;
+      font-size: .8rem;
+      color: rgba(255,255,255,.75);
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 680px) {
@@ -561,7 +582,7 @@
       .event-row { grid-template-columns: 56px 1fr; gap: 1rem; }
       .event-tag { display: none; }
       .event-name { font-size: 0.9rem; }
-      footer { flex-direction: column; align-items: flex-start; gap: .5rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: .5rem; }
       .carousel-thumbs { gap: 6px; }
       .carousel-thumb { width: 56px; height: 38px; }
       .carousel-btn { width: 36px; height: 36px; font-size: .9rem; }
@@ -822,8 +843,19 @@
 
 <!-- ══ FOOTER ══ -->
 <footer>
-  <span class="footer-brand">HTV Hallein</span>
-  <span>© 2026 Halleiner Turnverein 1866 &nbsp;·&nbsp; <a href="impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="datenschutz.html">Datenschutz</a></span>
+  <div class="footer-partners">
+    <span class="footer-partners-label">Partner &amp; Sponsoren</span>
+    <div class="footer-partner-list">
+      <span class="footer-partner">Land Salzburg, Sportreferat</span>
+      <span class="footer-partner">ASVÖ Salzburg</span>
+      <span class="footer-partner">11teamsports</span>
+      <span class="footer-partner">Austrocell</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-brand">HTV Hallein</span>
+    <span>© 2026 Halleiner Turnverein 1866 &nbsp;·&nbsp; <a href="impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="datenschutz.html">Datenschutz</a></span>
+  </div>
 </footer>
 
 <script>

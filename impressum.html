@@ -116,6 +116,26 @@
 
     footer { background: var(--navy); color: rgba(255,255,255,.7); text-align: center; padding: 2rem; font-size: .85rem; }
     footer a { color: rgba(255,255,255,.85); }
+    .footer-partners {
+      max-width: 700px;
+      margin: 0 auto 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .footer-partners-label {
+      display: block;
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      margin-bottom: .75rem;
+    }
+    .footer-partner-list { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
+    .footer-partner {
+      border: 1px dashed rgba(255,255,255,.35);
+      border-radius: .4rem;
+      padding: .4rem .9rem;
+      font-size: .8rem;
+      color: rgba(255,255,255,.85);
+    }
   </style>
 </head>
 <body>
@@ -168,8 +188,7 @@
 
       <h2>Kontakt</h2>
       <p>
-        E-Mail: <a href="mailto:office@htv1866.at">office@htv1866.at</a><br>
-        Telefon: <span class="placeholder">Telefonnummer ergänzen</span>
+        E-Mail: <a href="mailto:office@htv1866.at">office@htv1866.at</a>
       </p>
 
       <h2>Vereinszweck</h2>
@@ -194,6 +213,15 @@
 </section>
 
 <footer>
+  <div class="footer-partners">
+    <span class="footer-partners-label">Partner &amp; Sponsoren</span>
+    <div class="footer-partner-list">
+      <span class="footer-partner">Land Salzburg, Sportreferat</span>
+      <span class="footer-partner">ASVÖ Salzburg</span>
+      <span class="footer-partner">11teamsports</span>
+      <span class="footer-partner">Austrocell</span>
+    </div>
+  </div>
   <p>© 2024 Halleiner Turnverein 1866 · Bürgerspitalplatz 5, 5400 Hallein</p>
   <p style="margin-top:.4rem"><a href="index.html">Startseite</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
 </footer>
