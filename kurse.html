@@ -148,8 +148,15 @@
     /* ── SCHEDULE TABLE ── */
     .schedule-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(5, 1fr);
       gap: 1.25rem;
+    }
+    @media (max-width: 800px) {
+      .schedule-grid {
+        grid-template-columns: repeat(5, minmax(160px, 1fr));
+        overflow-x: auto;
+        padding-bottom: .5rem;
+      }
     }
     .day-col {
       background: var(--surface);
@@ -303,7 +310,7 @@
           <div class="slot highlight">
             <div class="slot-time">17:00 – 20:00 Uhr</div>
             <div class="slot-name">Leistungsriege Mädchen</div>
-            <div class="slot-trainer">Wolfgang &amp; Leonie</div>
+            <div class="slot-trainer">Wolfgang S. &amp; Leonie S.</div>
           </div>
         </div>
       </div>
@@ -314,7 +321,7 @@
           <div class="slot highlight">
             <div class="slot-time">17:00 – 19:00 Uhr</div>
             <div class="slot-name">Talentturnen</div>
-            <div class="slot-trainer">Franziska Huber &amp; Monika Noppinger</div>
+            <div class="slot-trainer">Franziska H. &amp; Monika N.</div>
             <div class="slot-note"><strong>Achtung:</strong> Zusätzliches Trainingsangebot für Talente im Volksschulalter, die schon im Verein sind und mehr trainieren wollen. Die Anmeldung erfolgt ausschließlich über Empfehlung der Vereinstrainer*innen – eine Selbstanmeldung ist nicht möglich.</div>
           </div>
         </div>
@@ -326,17 +333,17 @@
           <div class="slot">
             <div class="slot-time">15:00 – 16:15 Uhr</div>
             <div class="slot-name">Elternkindturnen</div>
-            <div class="slot-trainer">Christiane &amp; Cornelia Dorfner</div>
+            <div class="slot-trainer">Christiane D. &amp; Cornelia D.</div>
           </div>
           <div class="slot">
             <div class="slot-time">16:30 – 18:00 Uhr</div>
             <div class="slot-name">Turnen 6–8 Jahre</div>
-            <div class="slot-trainer">Dorfner</div>
+            <div class="slot-trainer">Christiane D. &amp; Cornelia D.</div>
           </div>
           <div class="slot highlight">
             <div class="slot-time">17:30 – 19:30 Uhr</div>
             <div class="slot-name">Burschenturnen ab 9 Jahre</div>
-            <div class="slot-trainer">Ingrun, Sandra &amp; Hartmut</div>
+            <div class="slot-trainer">Ingrun L., Sandra S. &amp; Hartmut S.</div>
           </div>
           <div class="slot highlight">
             <div class="slot-time">18:00 – 20:30 Uhr</div>
@@ -356,22 +363,22 @@
           <div class="slot">
             <div class="slot-time">14:15 – 15:30 Uhr</div>
             <div class="slot-name">Elternkindturnen</div>
-            <div class="slot-trainer">Dorfner</div>
+            <div class="slot-trainer">Christiane D. &amp; Cornelia D.</div>
           </div>
           <div class="slot">
             <div class="slot-time">15:30 – 16:30 Uhr</div>
             <div class="slot-name">Kleinkinderturnen 4–6 Jahre</div>
-            <div class="slot-trainer">Dorfner</div>
+            <div class="slot-trainer">Christiane D. &amp; Cornelia D.</div>
           </div>
           <div class="slot highlight">
             <div class="slot-time">17:00 – 20:00 Uhr</div>
             <div class="slot-name">Leistungsriege Mädchen</div>
-            <div class="slot-trainer">Wolfgang</div>
+            <div class="slot-trainer">Wolfgang S.</div>
           </div>
           <div class="slot">
             <div class="slot-time">18:00 – 19:00 Uhr</div>
             <div class="slot-name">Damengymnastik</div>
-            <div class="slot-trainer">Monika Radacher</div>
+            <div class="slot-trainer">Monika R.</div>
           </div>
         </div>
       </div>
@@ -382,12 +389,12 @@
           <div class="slot">
             <div class="slot-time">14:30 – 16:30 Uhr</div>
             <div class="slot-name">Mädchenturnen 9–11 Jahre</div>
-            <div class="slot-trainer">Dorfner</div>
+            <div class="slot-trainer">Christiane D. &amp; Cornelia D.</div>
           </div>
           <div class="slot">
             <div class="slot-time">16:45 – 18:45 Uhr</div>
             <div class="slot-name">Mädchenturnen ab 12 Jahren</div>
-            <div class="slot-trainer">Dorfner</div>
+            <div class="slot-trainer">Christiane D. &amp; Cornelia D.</div>
           </div>
           <div class="slot highlight">
             <div class="slot-time">17:30 – 19:30 Uhr</div>
@@ -402,12 +409,12 @@
           <div class="slot">
             <div class="slot-time">19:00 – 20:00 Uhr</div>
             <div class="slot-name">Funktionsgymnastik</div>
-            <div class="slot-trainer">Jetske Schwaiger</div>
+            <div class="slot-trainer">Jetske S.</div>
           </div>
           <div class="slot">
             <div class="slot-time">20:00 – 22:00 Uhr</div>
             <div class="slot-name">Volleyball</div>
-            <div class="slot-trainer">Herwig Schwaiger</div>
+            <div class="slot-trainer">Herwig S.</div>
           </div>
         </div>
       </div>
@@ -417,7 +424,7 @@
 </section>
 
 <!-- ── MITGLIEDSBEITRÄGE ── -->
-<section class="section alt">
+<section class="section alt" id="beitraege">
   <div class="container">
     <p class="section-eyebrow">Finanzielles</p>
     <h2 class="section-heading">Mitgliedsbeiträge</h2>
