@@ -356,6 +356,19 @@
       max-width: 72ch;
     }
     [data-theme="dark"] .news-post-body { color: #9aa0b8; }
+    .ics-link {
+      display: inline-flex; align-items: center; gap: .45rem;
+      margin-top: 1rem;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--teal);
+      text-decoration: none;
+      border: 1px solid var(--teal);
+      border-radius: 20px;
+      padding: 5px 14px;
+      transition: background .2s, color .2s;
+    }
+    .ics-link:hover { background: var(--teal); color: var(--white); }
+    .ics-link[hidden] { display: none; }
     [data-theme="dark"] .news-date { color: #6b7280; }
     .site-notice {
       background: rgba(0,118,101,.06);
@@ -687,6 +700,10 @@
       </div>
       <h3 class="news-post-title">Neujahrsschauturnen</h3>
       <p class="news-post-body">Wir freuen uns, Sie zu unserem Neujahrsschauturnen am Samstag, 30.01.2027 ab 15 Uhr einladen zu dürfen. Das genau Programm folgt.</p>
+      <a class="ics-link" href="kalender/neujahrsschauturnen-2027.ics" download data-event-end="2027-01-30T18:00:00+01:00">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v5M9.5 16.5h5"/></svg>
+        In meinen Kalender eintragen
+      </a>
     </article>
 
     <article class="news-post">
@@ -838,6 +855,11 @@
       html.setAttribute('data-theme', next);
       toggle.textContent = next === 'dark' ? '☀️' : '🌙';
       try { localStorage.setItem('theme', next); } catch(e) {}
+    });
+
+    // ── Kalender-Links: nach Veranstaltungsende ausblenden ──
+    document.querySelectorAll('.ics-link[data-event-end]').forEach(link => {
+      if (new Date(link.dataset.eventEnd) < new Date()) link.hidden = true;
     });
 
     // ── Carousel ──
