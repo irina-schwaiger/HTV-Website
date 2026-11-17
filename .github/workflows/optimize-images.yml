@@ -1,0 +1,45 @@
+# Sicherheitsnetz: Verkleinert zu große Bilder in images/ und entfernt Metadaten (z. B. GPS),
+# falls ein Bild am CMS vorbei oder ohne dessen Optimierung hochgeladen wurde.
+name: Bilder optimieren
+
+on:
+  push:
+    branches: [main]
+    paths: ['images/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-images
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: sharp installieren
+        run: npm install --no-save --no-package-lock sharp@0.35.5
+
+      - name: Bilder optimieren
+        run: node tools/optimize-images.mjs images
+
+      - name: Änderungen speichern
+        run: |
+          if git diff --quiet -- images; then
+            echo "Keine Bilder zu optimieren."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images
+          git commit -m "Bilder automatisch verkleinert"
+          git pull --rebase
+          git push

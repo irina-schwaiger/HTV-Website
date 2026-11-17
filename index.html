@@ -415,12 +415,43 @@
       border-bottom: none;
     }
     [data-theme="dark"] .news-feed .event-row { background: var(--ash); }
+    .event-time { font-size: 0.82rem; color: #718096; margin-top: 2px; }
+    .event-desc { font-size: 0.88rem; color: #4a5568; line-height: 1.6; margin-top: .4rem; max-width: 72ch; }
+    [data-theme="dark"] .event-desc { color: #9aa0b8; }
+    [data-theme="dark"] .event-time,
+    [data-theme="dark"] .event-place { color: #8b93a8; }
+    .event-row .ics-link { margin-top: .6rem; }
+    button.ics-link { background: none; cursor: pointer; font-family: inherit; }
+
+    /* ── Termine / Neuigkeiten ── */
+    .feed-heading {
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-top: 2rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--teal);
+    }
+    .feed-message {
+      font-size: 0.92rem;
+      color: #4a5568;
+      padding: 1.25rem 0;
+    }
+    [data-theme="dark"] .feed-message { color: #9aa0b8; }
+    .gallery .feed-message, .gallery-message { color: rgba(255,255,255,.7); text-align: center; }
+    .news-post-image {
+      display: block;
+      width: 100%; max-width: 640px;
+      border-radius: var(--r);
+      margin: .25rem 0 1rem;
+    }
+    .news-post-body a { color: var(--teal); }
 
     /* ── Gallery ── */
     .gallery { background: var(--navy); padding: clamp(48px, 8vh, 80px) 5vw; }
     [data-theme="dark"] .gallery { background: #0e0f1e; }
     .gallery .section-eyebrow { color: var(--teal-lt); }
-    .gallery .section-heading { color: var(--white); margin-bottom: 2rem; }
+    .gallery .section-heading { color: #ffffff; margin-bottom: 2rem; }
 
     .carousel-wrap { position: relative; }
     .carousel {
@@ -463,7 +494,7 @@
       z-index: 10;
       background: rgba(0,0,0,.45);
       border: 1px solid rgba(255,255,255,.15);
-      color: var(--white);
+      color: #ffffff;
       width: 44px; height: 44px;
       border-radius: 50%;
       cursor: pointer;
@@ -595,7 +626,7 @@
       section { padding: 52px 6vw; }
       .section-heading { font-size: clamp(1.4rem, 6vw, 2rem); }
       .event-row { grid-template-columns: 56px 1fr; gap: 1rem; }
-      .event-tag { display: none; }
+      .event-row .event-tag { grid-column: 2; }
       .event-name { font-size: 0.9rem; }
       .footer-bottom { flex-direction: column; align-items: flex-start; gap: .5rem; }
       .carousel-thumbs { gap: 6px; }
@@ -685,8 +716,8 @@
 <!-- ══ AKTUELL ══ -->
 <section id="events">
   <p class="section-eyebrow">Aktuell</p>
-  <h2 class="section-heading">News &amp; Termine</h2>
-  <p class="section-intro">Was bei uns gerade los ist – Neuigkeiten aus dem Vereinsleben und kommende Veranstaltungen.</p>
+  <h2 class="section-heading">Termine &amp; Neuigkeiten</h2>
+  <p class="section-intro">Was bei uns gerade los ist – kommende Veranstaltungen und Neuigkeiten aus dem Vereinsleben.</p>
 
   <div class="news-feed">
 
@@ -694,59 +725,15 @@
       <strong>Hinweis:</strong> Diese Website befindet sich noch im Aufbau. Wir bitten um Verständnis, falls noch nicht alles wie gewünscht funktioniert – es folgen in den nächsten Wochen noch einige Updates.
     </div>
 
-    <article class="news-post">
-      <div class="news-post-meta">
-        <span class="news-tag post">Vereinsnews</span>
-        <span class="news-date">17. November 2026</span>
-      </div>
-      <h3 class="news-post-title">Österreichische Turn10 Meisterschaften 2026 in Bregenz</h3>
-      <p class="news-post-body">Ein kleines aber feines Team stellte der Halleiner Turnverein 1866 bei der heurigen Turn10 ÖM am 14. und 15. November in Bregenz, dafür aber ein umso erfolgreicheres.</p>
-      <p class="news-post-body">Beginnen wir bei den Jüngsten und das gleich mit einer tollen Platzierung: In der Basisstufe der AK 9 erreichte Katharina Huber den hervorragenden 6. Platz!</p>
-      <p class="news-post-body">Magdalena Schnessl erturnte in der Basisstufe der AK 11 einen starken 21. Rang, was angesichts des extrem großen Teilnehmerfelds von 59 Starterinnen (!) wirklich sehr erfreulich ist.</p>
-      <p class="news-post-body">Ebenfalls in die „20er“ kam Hannah Lamprechter, allerdings bereits in der Oberstufe der 15- bis 16-Jährigen und zeigte mit dem 26. Platz erfolgreich auf, wie sie sich in dieser höheren Wettkampfklasse etablieren konnte.</p>
-      <p class="news-post-body">Und dann gab es da noch unsere zwei Teilnehmer in den Erwachsenenklassen, Amina Strobl und Michael Altesberger. Die beiden ließen es sich nicht nehmen, auch an der heurigen Einzel-ÖM teilzunehmen, nachdem sie bereits letztes Jahr im Teambewerb mit dabei waren… und die Teilnahme machte sich bezahlt: Beide konnten ihre Altersklassen gewinnen!</p>
-      <p class="news-post-body">Wir gratulieren allen erfolgreichen Turner*innen des HTV 1866 ganz herzlich!!</p>
-    </article>
+    <h3 class="feed-heading">Termine</h3>
+    <div id="eventList" aria-live="polite">
+      <noscript><p class="feed-message">Bitte aktiviere JavaScript, um die Termine zu sehen.</p></noscript>
+    </div>
 
-    <article class="news-post">
-      <div class="news-post-meta">
-        <span class="news-tag post">Vereinsnews</span>
-        <span class="news-date">30. Jänner 2027</span>
-      </div>
-      <h3 class="news-post-title">Neujahrsschauturnen</h3>
-      <p class="news-post-body">Wir freuen uns, Sie zu unserem Neujahrsschauturnen am Samstag, 30.01.2027 ab 15 Uhr einladen zu dürfen. Das genaue Programm folgt.</p>
-      <a class="ics-link" href="kalender/neujahrsschauturnen-2027.ics" download data-event-end="2027-01-30T18:00:00+01:00">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v5M9.5 16.5h5"/></svg>
-        In meinen Kalender eintragen
-      </a>
-    </article>
-
-    <article class="news-post">
-      <div class="news-post-meta">
-        <span class="news-tag post">Vereinsnews</span>
-        <span class="news-date">25. August 2026</span>
-      </div>
-      <h3 class="news-post-title">Ankündigung: Der Turnbetrieb startet wieder am 21.09.!</h3>
-      <p class="news-post-body">Nach der Sommerpause geht es am 21. September 2026 wieder los – wir freuen uns auf ein turnerisches Wiedersehen mit euch allen!</p>
-    </article>
-
-    <article class="news-post">
-      <div class="news-post-meta">
-        <span class="news-tag post">Vereinsnews</span>
-        <span class="news-date">19. Juli 2026</span>
-      </div>
-      <h3 class="news-post-title">Neue Website – sicherer, moderner, besser</h3>
-      <p class="news-post-body">Wie einige von euch vielleicht bemerkt haben, wurde unsere alte Website vor Kurzem Opfer eines Hackerangriffs und musste vom Netz genommen werden. Wir haben diesen Vorfall zum Anlass genommen, die Seite von Grund auf neu zu gestalten – und das Ergebnis haltet ihr gerade in den Händen. Die neue Website läuft auf einer modernen, sicheren Technologie ohne anfällige Datenbanken oder veraltete Systeme. Persönliche Daten unserer Mitglieder waren zu keinem Zeitpunkt betroffen – die alte Seite enthielt ausschließlich öffentliche Informationen wie Kurszeiten und Kontaktdaten. Wir freuen uns über euer Feedback und wünschen viel Spaß beim Stöbern!</p>
-    </article>
-
-    <article class="news-post">
-      <div class="news-post-meta">
-        <span class="news-tag post">Vereinsnews</span>
-        <span class="news-date">28. Juni 2026</span>
-      </div>
-      <h3 class="news-post-title">Schöne Sommerferien – der Trainingsbetrieb startet im September wieder</h3>
-      <p class="news-post-body">Die Sommerpause ist da! Alle regulären Kurse ruhen vom 14. Juli bis 31. August. Ab dem 1. September geht es wieder los – wir freuen uns auf euch. Wer in der Zwischenzeit Fragen hat, erreicht uns wie gewohnt per E-Mail.</p>
-    </article>
+    <h3 class="feed-heading">Neuigkeiten</h3>
+    <div id="newsList" aria-live="polite">
+      <noscript><p class="feed-message">Bitte aktiviere JavaScript, um die Neuigkeiten zu sehen.</p></noscript>
+    </div>
 
   </div>
 </section>
@@ -758,97 +745,7 @@
 
   <div class="carousel-wrap">
     <div class="carousel" id="carousel">
-      <div class="carousel-track" id="carouselTrack">
-
-        <div class="carousel-slide portrait" data-caption="Reckturnen – Training mit Hilfestellung">
-          <img src="img/galerie/01.webp" alt="Turnerin im Handstand an der Reckstange, eine Trainerin gibt Hilfestellung">
-        </div>
-
-        <div class="carousel-slide" data-caption="Gemeinsame Jause nach dem Training">
-          <img src="img/galerie/02.webp" alt="Kinder sitzen im Kreis auf einer Turnmatte und teilen sich Obst" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Bausteinaktion für unsere Stützmauer">
-          <img src="img/galerie/03.webp" alt="Mit Spendernamen beschriftete Bausteine neben einer Spendenschale" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Siegerehrung im Landessportzentrum Salzburg">
-          <img src="img/galerie/04.webp" alt="Turnerinnen in Vereinsdressen auf dem Siegerpodest" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Vorführung am Pflegerplatz in Hallein">
-          <img src="img/galerie/05.webp" alt="Turnerinnen und Turner winken vor der Bühne am Pflegerplatz" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Schwebebalken – Training an der Longe">
-          <img src="img/galerie/06.webp" alt="Übung auf dem Schwebebalken, gesichert mit der Longe, Arme in Hochhalte" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Wettkampf am Schwebebalken">
-          <img src="img/galerie/07.webp" alt="Standwaage auf dem Schwebebalken während eines Wettkampfs" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Spagat auf dem Schwebebalken">
-          <img src="img/galerie/08.webp" alt="Kind im Spagat auf dem Schwebebalken mit erhobenem Arm" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Handstand am Barren">
-          <img src="img/galerie/09.webp" alt="Handstand am Barren unter der Hallendecke" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Winkelstütz am Barren">
-          <img src="img/galerie/10.webp" alt="Winkelstütz am Barren vor Sponsorenbannern" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Wettkampf am Barren">
-          <img src="img/galerie/11.webp" alt="Stütz am Barren im Wettkampf, im Hintergrund das Publikum" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Kraft und Körperspannung am Barren">
-          <img src="img/galerie/12.webp" alt="Winkelstütz am Barren, im Hintergrund Länderfahnen" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Sprung vom Minitrampolin">
-          <img src="img/galerie/13.webp" alt="Gestreckter Sprung über dem Minitrampolin in einer Wettkampfhalle" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Training am Stufenbarren in unserer Turnhalle">
-          <img src="img/galerie/14.webp" alt="Übung am Stufenbarren unter dem HTV-Logo" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Erste Schritte am Reck">
-          <img src="img/galerie/15.webp" alt="Kind in der Hocke auf der Reckstange" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Spaß am Sprungtisch">
-          <img src="img/galerie/16.webp" alt="Kind im Handstand auf dem Sprungtisch, lachend" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Körperspannung in der Gruppe">
-          <img src="img/galerie/17.webp" alt="Gruppe in einer Reihe beim Halten der V-Position auf der Matte" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Spagat-Reihe beim Aufwärmen">
-          <img src="img/galerie/18.webp" alt="Kinder sitzen hintereinander im Spagat auf der Bodenbahn" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Gestreckte Füße – Training im Detail">
-          <img src="img/galerie/19.webp" alt="Nahaufnahme gestreckter Füße entlang einer Airtrack-Bahn" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Hoch hinaus">
-          <img src="img/galerie/20.webp" alt="Sprung hoch in die Luft vor dem Hallendach" loading="lazy">
-        </div>
-
-        <div class="carousel-slide portrait" data-caption="Salto auf die Weichbodenmatte">
-          <img src="img/galerie/21.webp" alt="Rückwärtssalto vor dem Hallenfenster auf eine Weichbodenmatte" loading="lazy">
-        </div>
-
-        <div class="carousel-slide" data-caption="Freude nach der Übung">
-          <img src="img/galerie/22.webp" alt="Lachendes Kind mit erhobenen Armen im Wettkampfdress" loading="lazy">
-        </div>
-
-      </div>
+      <div class="carousel-track" id="carouselTrack"></div>
     </div>
 
     <button class="carousel-btn prev" id="carouselPrev" aria-label="Vorheriges Bild">&#8592;</button>
@@ -858,6 +755,8 @@
   <div class="carousel-dots" id="carouselDots"></div>
   <div class="carousel-thumbs" id="carouselThumbs"></div>
   <div class="carousel-caption" id="carouselCaption"></div>
+  <p class="feed-message gallery-message" id="galleryMessage" hidden></p>
+  <noscript><p class="feed-message gallery-message">Bitte aktiviere JavaScript, um die Bilder zu sehen.</p></noscript>
 </section>
 
 <!-- ══ KONTAKT ══ -->
@@ -940,87 +839,8 @@
       try { localStorage.setItem('theme', next); } catch(e) {}
     });
 
-    // ── Kalender-Links: nach Veranstaltungsende ausblenden ──
-    document.querySelectorAll('.ics-link[data-event-end]').forEach(link => {
-      if (new Date(link.dataset.eventEnd) < new Date()) link.hidden = true;
-    });
-
-    // ── Carousel ──
-    (function() {
-      const track    = document.getElementById('carouselTrack');
-      const slides   = track ? Array.from(track.children) : [];
-      const dotsEl   = document.getElementById('carouselDots');
-      const thumbsEl = document.getElementById('carouselThumbs');
-      const caption  = document.getElementById('carouselCaption');
-      if (!track || !slides.length) return;
-
-      let current = 0;
-      let autoTimer;
-
-      slides.forEach((slide, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Bild ' + (i + 1));
-        dot.addEventListener('click', () => goTo(i, true));
-        dotsEl.appendChild(dot);
-
-        const thumb = document.createElement('div');
-        thumb.className = 'carousel-thumb' + (i === 0 ? ' active' : '');
-        const img = slide.querySelector('img');
-        if (img) {
-          const t = document.createElement('img');
-          t.src = img.src; t.alt = img.alt;
-          thumb.appendChild(t);
-        } else {
-          thumb.textContent = i + 1;
-        }
-        thumb.addEventListener('click', () => goTo(i, true));
-        thumbsEl.appendChild(thumb);
-      });
-
-      function updateUI(scrollThumbs) {
-        track.style.transform = 'translateX(-' + current * 100 + '%)';
-        const cap = slides[current].dataset.caption || '';
-        if (caption) caption.textContent = cap;
-        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
-          d.classList.toggle('active', i === current));
-        thumbsEl.querySelectorAll('.carousel-thumb').forEach((t, i) =>
-          t.classList.toggle('active', i === current));
-        const activeThumb = thumbsEl.children[current];
-        if (activeThumb && scrollThumbs) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-
-      function goTo(n, userInitiated) {
-        current = (n + slides.length) % slides.length;
-        updateUI(userInitiated);
-        resetAuto();
-      }
-
-      document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1, true));
-      document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1, true));
-
-      let startX = 0;
-      const carousel = document.getElementById('carousel');
-      carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-      carousel.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1), true);
-      });
-
-      document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft') goTo(current - 1, true);
-        if (e.key === 'ArrowRight') goTo(current + 1, true);
-      });
-
-      function resetAuto() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(() => goTo(current + 1), 5000);
-      }
-
-      updateUI(false);
-      resetAuto();
-    })();
   });
 </script>
+<script src="js/content.js"></script>
 </body>
 </html>
